@@ -116,7 +116,6 @@ A modern, feature-rich video player built with vanilla HTML, CSS, and JavaScript
 ├── script.js           # Core video player functionality
 ├── upload.js           # File upload and management
 ├── playlist.js         # Playlist and library features
-├── video/              # Sample video directory
 └── README.md           # This file
 ```
 
