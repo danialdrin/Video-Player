@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Video Player</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <h1><i class="fas fa-play-circle"></i>Video Player</h1>
+            <div class="header-controls">
+                <button class="btn-icon" id="theme-toggle" title="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Video Player Section -->
+            <section class="video-section">
+                <div class="video-container">
+                    <video id="video" class="video-player" preload="metadata">
+                        Your browser does not support the video tag.
+                    </video>
+
+                    <!-- Custom Controls Overlay -->
+                    <div class="custom-controls" id="custom-controls">
+                        <!-- Progress Bar -->
+                        <div class="progress-container">
+                            <div class="progress-bar" id="progress-bar">
+                                <div class="progress-filled" id="progress-filled"></div>
+                                <div class="progress-handle" id="progress-handle"></div>
+                            </div>
+                        </div>
+
+                        <!-- Control Buttons -->
+                        <div class="controls-row">
+                            <div class="controls-left">
+                                <button class="control-btn" id="play-pause-btn" title="Play/Pause">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <button class="control-btn" id="stop-btn" title="Stop">
+                                    <i class="fas fa-stop"></i>
+                                </button>
+                                <button class="control-btn" id="skip-back-btn" title="Skip Back 10s">
+                                    <i class="fas fa-backward"></i>
+                                </button>
+                                <button class="control-btn" id="skip-forward-btn" title="Skip Forward 10s">
+                                    <i class="fas fa-forward"></i>
+                                </button>
+
+                                <!-- Volume Control -->
+                                <div class="volume-control">
+                                    <button class="control-btn" id="volume-btn" title="Mute/Unmute">
+                                        <i class="fas fa-volume-up"></i>
+                                    </button>
+                                    <input type="range" id="volume-slider" class="volume-slider" min="0" max="100" value="100">
+                                </div>
+
+                                <!-- Time Display -->
+                                <div class="time-display">
+                                    <span id="current-time">00:00</span>
+                                    <span>/</span>
+                                    <span id="duration">00:00</span>
+                                </div>
+                            </div>
+
+                            <div class="controls-right">
+                                <!-- Playback Speed -->
+                                <select id="speed-select" class="speed-select" title="Playback Speed">
+                                    <option value="0.5">0.5x</option>
+                                    <option value="0.75">0.75x</option>
+                                    <option value="1" selected>1x</option>
+                                    <option value="1.25">1.25x</option>
+                                    <option value="1.5">1.5x</option>
+                                    <option value="2">2x</option>
+                                </select>
+
+                                <!-- Quality Selector -->
+                                <select id="quality-select" class="quality-select" title="Video Quality">
+                                    <option value="auto" selected>Auto</option>
+                                    <option value="1080p">1080p</option>
+                                    <option value="720p">720p</option>
+                                    <option value="480p">480p</option>
+                                    <option value="360p">360p</option>
+                                </select>
+
+                                <button class="control-btn" id="pip-btn" title="Picture in Picture">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </button>
+                                <button class="control-btn" id="fullscreen-btn" title="Fullscreen">
+                                    <i class="fas fa-expand"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Loading Spinner -->
+                    <div class="loading-spinner" id="loading-spinner">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </div>
+                </div>
+
+                <!-- Video Info -->
+                <div class="video-info" id="video-info">
+                    <h3 id="video-title">Select a video to play</h3>
+                    <div class="video-metadata">
+                        <span id="video-duration">Duration: --:--</span>
+                        <span id="video-size">Size: --</span>
+                        <span id="video-format">Format: --</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <!-- Upload Area -->
+                <div class="upload-section">
+                    <div class="upload-area" id="upload-area">
+                        <div class="upload-content">
+                            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            <p>Drag & drop videos here</p>
+                            <p class="upload-text">or</p>
+                            <button class="btn-primary" id="file-select-btn">Choose Files</button>
+                            <input type="file" id="file-input" accept="video/*" multiple hidden>
+                        </div>
+                    </div>
+                    <div class="upload-progress" id="upload-progress" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="upload-progress-fill"></div>
+                        </div>
+                        <span id="upload-status">Uploading...</span>
+                    </div>
+                </div>
+
+                <!-- Video Library -->
+                <div class="library-section">
+                    <div class="library-header">
+                        <h3><i class="fas fa-video"></i> Video Library</h3>
+                        <div class="library-controls">
+                            <input type="text" id="search-input" placeholder="Search videos..." class="search-input">
+                            <button class="btn-icon" id="clear-all-btn" title="Clear All Videos">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="video-list" id="video-list">
+                        <!-- Video items will be dynamically added here -->
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Upload Modal -->
+    <div class="modal" id="upload-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Upload Videos</h3>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="upload-area" id="modal-upload-area">
+                    <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <p>Drag & drop videos here or click to select</p>
+                        <p class="supported-formats">Supported: MP4, WebM, AVI, MOV, MKV</p>
+                        <input type="file" id="modal-file-input" accept="video/*" multiple>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script src="upload.js"></script>
+    <script src="playlist.js"></script>
+</body>
+</html>
